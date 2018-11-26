@@ -1,0 +1,28 @@
+/*
+> provider
+>> servicos do tipo provider podem ser configurados, acontecendo antes da instanciacao do servico
+ */
+angular.module("listaTelefonica").provider("serialGenerator",function(){
+
+    var _length = 5; // vamos passar o length na configuracao;
+
+    this.getLength = function(){
+        return _length;
+    };
+
+    this.setLength = function(length){
+        _length = length;
+    };
+
+    this.$get = function(){
+      return {
+          generate: function(){
+              var serial = "";
+              while(serial.length < _length){
+                  serial += String.fromCharCode(Math.floor(Math.random() * 64) + 32);
+              }
+              return serial;
+          }
+      };
+    };
+});
