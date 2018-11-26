@@ -2,77 +2,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Lista Telefônica</title>
+
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
-	<style>
-		.jumbotron {
-			width: 600px;
-			text-align: center;
-			margin-top: 20px;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		.table {
-			margin-top: 20px;
-		}
-		.form-control {
-			margin-bottom: 5px;
-		}
-		.selecionado {
-			background-color: yellow;
-		}	
-		.negrito {
-			font-weight: bold;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+
 	<script src="lib/angular/angular.js"></script>
 	<script src="lib/angular/angular-messages.js"></script>
 	<script src="lib/angular/angular-locale_pt-br.js"></script>
-	<script>
-		angular.module("listaTelefonica", ["ngMessages"]); // colchetes servem para importar outros modulos
-		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $filter, uppercaseFilter) {
-			$scope.app = "Lista Telefônica";
-			// uma forma mais performática de se aplicar os filter é utilizar ele nos controllers
-			$scope.contatos = [
-				{nome: uppercaseFilter("Pedro"), telefone: "99998888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "blue"},
-				// {nome: $filter('uppercase')("Pedro"), telefone: "99998888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "blue"},
-				{nome: "Ana", telefone: "99998877", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"},cor: "green"},
-				{nome: "Maria", telefone: "99998866", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"},cor: "red"}
-			];
-			$scope.operadoras = [
-				{nome: "Oi", codigo: 14, categoria: "Celular", preco: 2},
-				{nome: "Vivo", codigo: 15, categoria: "Celular", preco: 1},
-				{nome: "Tim", codigo: 41, categoria: "Celular", preco: 3},
-				{nome: "GVT", codigo: 25, categoria: "Fixo", preco: 1},
-				{nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 2}
-			];
-			$scope.adicionarContato = function (contato) {
-				$scope.contatos.push(angular.copy(contato));
-				delete $scope.contato;
-				$scope.contatoForm.$setPristine();
-			};
-			$scope.classe1 = "selecionado";
-			$scope.classe2 = "negrito";
-			$scope.apagarContato = function (contatos) {
-				$scope.contatos = contatos.filter(function (contato) {
-					if (!contato.selecionado) return contato;
-				});
-
-			};
-			$scope.isContatoSelecionado = function (contatos) {
-				return contatos.some(function (contato){
-					return contato.selecionado;
-				});
-			};
-			$scope.ordenarPor = function (campo) {
-			    $scope.criterioDeOrdenacao = campo;
-			    $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
-            };
-		});
-	</script>
+	<script src="js/app.js"></script>
+	<script src="js/controller/listaTelefonicaCtrl.js"></script>
 </head>
+
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="jumbotron">
 		<h3>{{app}}</h3>
+		{{message}}
         <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O quê você está buscando?"/>
 		<table class="table" ng-show="contatos.length > 0">
 		<!-- <table class="table table-striped"> -->
@@ -162,6 +106,6 @@
 	<!-- são utilizadas aspas simples e duplas para que o angular não pesquisa uma propriedade
 	no $scope -->
 	<!-- <div ng-include="'footer.html'" scope="" onload=""></div> -->
-	<div ng-include="'footer.html'"></div>
+	<div ng-include="'view/footer.html'"></div>
 </body>
 </html>

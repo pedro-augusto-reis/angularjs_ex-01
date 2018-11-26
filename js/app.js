@@ -1,0 +1,1 @@
+angular.module("listaTelefonica", ["ngMessages"]); // colchetes servem para importar outros modulos
