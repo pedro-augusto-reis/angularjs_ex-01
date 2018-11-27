@@ -1,6 +1,7 @@
 <html ng-app="listaTelefonica">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon" />
     <title>Lista Telefônica</title>
 
     <!-- CSS -->
@@ -10,6 +11,8 @@
 
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-messages.js"></script>
+    <script src="lib/serialGenerator/serialGenerator.js"></script>
+    <script src="lib/ui/uiAccordion.js"></script>
     <script src="lib/angular/angular-locale_pt-br.js"></script>
 
     <script src="js/app.js"></script>
@@ -20,7 +23,6 @@
     <!-- SERVICE -->
     <script src="js/services/contatosAPIService.js"></script>
     <script src="js/services/operadorasAPIService.js"></script>
-    <script src="js/services/serialGeneratorService.js"></script>
     <script src="js/services/checkStatusAPIService.js"></script>
 
     <!-- CONSTANT -->
@@ -37,7 +39,6 @@
     <script src="js/directives/uiAlertDirective.js"></script>
     <script src="js/directives/uiDateDirective.js"></script>
     <script src="js/directives/uiTelefoneDirective.js"></script>
-    <script src="js/directives/uiAccordionDirective.js"></script>
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
