@@ -4,10 +4,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
     // uma forma mais performática de se aplicar os filter é utilizar ele nos controllers
     // $scope.contatos = [
     // 	{nome: uppercaseFilter("Pedro"), telefone: "99998888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "blue"},
-    // 	// {nome: $filter('uppercase')("Pedro"), telefone: "99998888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "blue"},
-    // 	{nome: "Ana", telefone: "99998877", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"},cor: "green"},
-    // 	{nome: "Maria", telefone: "99998866", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"},cor: "red"}
-    // ];
+    // 	{nome: $filter('uppercase')("Pedro"), telefone: "99998888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "blue"}];
 
     $scope.contatos = [];
     $scope.operadoras = [];
@@ -51,17 +48,15 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
 
     var carregarOperadoras = function(){
 
-            operadorasAPI.getOperadoras().then(function (response) {
+            operadorasAPI.getOperadoras()
+                .then(function (response) {
                 $scope.operadoras = response.data;
             })
-            .catch(function(error){
-                $scope.message = "Aconteceu um problema.";
-                console.log('aqui');
-                console.log(error);
+                .catch(function(error){
+                $scope.error = "Aconteceu um problema.";
             });
     };
 
     carregarContatos();
     carregarOperadoras();
-
 });

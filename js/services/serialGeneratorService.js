@@ -2,6 +2,7 @@
 > provider
 >> servicos do tipo provider podem ser configurados, acontecendo antes da instanciacao do servico
  */
+
 angular.module("listaTelefonica").provider("serialGenerator",function(){
 
     var _length = 5; // vamos passar o length na configuracao;
