@@ -19,3 +19,11 @@
 .negrito {
 	font-weight: bold;
 }
+
+#search{
+    margin-top: 20px;
+}
+
+#accordions{
+	margin-top: 20px;
+}
