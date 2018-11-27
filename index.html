@@ -19,8 +19,9 @@
 
     <!-- SERVICE -->
     <script src="js/services/contatosAPIService.js"></script>
-    <script src="js/services/operadoasAPIService.js"></script>
+    <script src="js/services/operadorasAPIService.js"></script>
     <script src="js/services/serialGeneratorService.js"></script>
+    <script src="js/services/checkStatusAPIService.js"></script>
 
     <!-- CONSTANT -->
     <script src="js/constants/configValue.js"></script>
@@ -40,17 +41,16 @@
 
 <body ng-controller="listaTelefonicaCtrl">
 <div class="jumbotron">
+    <div class="page-header">
+        <h1>{{app}}</h1>
+    </div>
 
     <!-- por javascript ser case sensitive e css nao, ui-alert = uiAlert, ng-show = ngShow-->
-    <ui-alert title="Ops, aconteceu um problema!">
+    <ui-alert ng-if="apiStatus" title="Ops, aconteceu um problema!">
         {{error}}
     </ui-alert>
 
-    <ui-alert title={{app}}>
-        AngularJS
-    </ui-alert>
-
-    <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O quê você está buscando?"/>
+    <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="Quem você está buscando?"/>
     <table class="table table-striped" ng-show="contatos.length > 0">
         <tr>
             <th></th>

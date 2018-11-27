@@ -1,4 +1,4 @@
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $filter, uppercaseFilter, contatosAPI, operadorasAPI, serialGenerator) {
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $filter, uppercaseFilter, contatosAPI, operadorasAPI, serialGenerator, checkApi) {
 
     $scope.app = "Lista Telefônica";
     // uma forma mais performática de se aplicar os filter é utilizar ele nos controllers
@@ -39,6 +39,16 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
     };
 
+    var apiStatus = function(){
+        checkApi.verificarServico()
+            .then(function(response){
+               $scope.apiStatus = false;
+            })
+            .catch(function(response){
+                $scope.apiStatus = true;
+            });
+    };
+
     var carregarContatos = function(){
         contatosAPI.getContatos()
             .then(function (response) {
@@ -47,16 +57,16 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
     };
 
     var carregarOperadoras = function(){
-
-            operadorasAPI.getOperadoras()
-                .then(function (response) {
+        operadorasAPI.getOperadoras()
+            .then(function (response) {
                 $scope.operadoras = response.data;
             })
-                .catch(function(error){
+            .catch(function(error){
                 $scope.error = "Aconteceu um problema.";
             });
     };
 
+    apiStatus();
     carregarContatos();
     carregarOperadoras();
 });
