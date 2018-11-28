@@ -13,6 +13,6 @@ angular.module("listaTelefonica").config(function($routeProvider){
     $routeProvider
         .when("/novoContato",{
             templateUrl: "view/novoContato.html",
-            controller: "listaTelefonicaCtrl"
+            controller: "novoContatoCtrl"
         });
 });
