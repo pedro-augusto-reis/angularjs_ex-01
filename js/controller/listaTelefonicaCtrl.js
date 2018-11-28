@@ -1,4 +1,4 @@
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $filter, uppercaseFilter, contatosAPI, operadorasAPI, serialGenerator, checkApi) {
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $filter, uppercaseFilter, contatosAPI, checkApi) {
 
     $scope.app = "Lista Telefônica";
     // uma forma mais performática de se aplicar os filter é utilizar ele nos controllers

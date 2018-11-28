@@ -1,9 +1,10 @@
-angular.module("listaTelefonica").factory("checkApi", function($http,config){
+angular.module("listaTelefonica").factory("checkApi", function ($http, config) {
+
     var _verificarServico = function(){
         return $http.get(config.baseUrl + "/serviceCheck");
     }
 
-    return{
+    return {
         verificarServico: _verificarServico
     }
 });

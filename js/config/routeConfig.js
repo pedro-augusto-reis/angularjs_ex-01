@@ -13,7 +13,12 @@ angular.module("listaTelefonica").config(function($routeProvider){
     $routeProvider
         .when("/novoContato",{
             templateUrl: "view/novoContato.html",
-            controller: "novoContatoCtrl"
+            controller: "novoContatoCtrl",
+            resolve: {
+                resolveOperadoras: function(operadorasAPI){
+                    return operadorasAPI.getOperadoras();
+                }
+            }
         });
 
     $routeProvider.otherwise({
