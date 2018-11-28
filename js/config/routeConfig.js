@@ -9,4 +9,10 @@ angular.module("listaTelefonica").config(function($routeProvider){
         .when("/accordion",{
             templateUrl: "view/accordion.html"
         });
+
+    $routeProvider
+        .when("/novoContato",{
+            templateUrl: "view/novoContato.html",
+            controller: "listaTelefonicaCtrl"
+        });
 });
