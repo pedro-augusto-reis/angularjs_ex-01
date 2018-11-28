@@ -15,4 +15,8 @@ angular.module("listaTelefonica").config(function($routeProvider){
             templateUrl: "view/novoContato.html",
             controller: "novoContatoCtrl"
         });
+
+    $routeProvider.otherwise({
+        redirectTo: "/contatos"
+    });
 });

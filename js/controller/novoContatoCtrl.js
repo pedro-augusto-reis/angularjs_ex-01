@@ -15,10 +15,9 @@ angular.module("listaTelefonica").controller("novoContatoCtrl", function ($scope
             .then(function (response) {
                 $scope.operadoras = response.data;
             })
-            .catch(function(error){
+            .catch(function(){
                 $scope.error = "Aconteceu um problema.";
             });
     };
-
     carregarOperadoras();
 });
