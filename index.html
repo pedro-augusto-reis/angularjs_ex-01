@@ -48,11 +48,19 @@
 
     <!-- INTERCEPTORS -->
     <script src="js/interceptors/timeStampInterceptor.js"></script>
+    <script src="js/interceptors/errorInteceptor.js"></script>
+    <script src="js/interceptors/loadingInterceptor.js"></script>
 </head>
 
+<!-- {{loading}} -->
 <body>
-<div ng-view></div>
-<!-- são utilizadas aspas simples e duplas para que o angular não pesquise uma propriedade no $scope -->
-<div ng-include="'view/footer.html'"></div>
+    <div class="jumbotron" ng-show="loading">
+        <h5>Carregando, por favor aguarde...</h5>
+    </div>
+    <div ng-hide="loading">
+        <div ng-view></div>
+        <!-- são utilizadas aspas simples e duplas para que o angular não pesquise uma propriedade no $scope -->
+        <div ng-include="'view/footer.html'"></div>
+    </div>
 </body>
 </html>
