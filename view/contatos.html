@@ -1,16 +1,16 @@
 <div class="jumbotron">
     <div class="page-header">
-        <h1>{{app}}</h1>
+        <h1>{{::app}}</h1>
     </div>
     <hr class="my-4">
 
     <!-- por javascript ser case sensitive e css nao, ui-alert = uiAlert, ng-show = ngShow-->
     <ui-alert ng-if="apiStatus" title="Ops, aconteceu um problema!">
-        {{error}}
+        {{::error}}
     </ui-alert>
 
     <input id="search" class="form-control" type="text" ng-model="criterioDeBusca"
-           placeholder="Quem você está buscando?"/>
+           placeholder="Quem você está buscando?" ng-model-options="{updateOn: 'default blur', debounce: {default: 800, blur: 0}}"/>
     <table class="table table-striped" ng-show="contatos.length > 0">
         <tr>
             <th></th>
@@ -18,31 +18,32 @@
             <th><a href="" ng-click="ordenarPor('nome')"/>Nome</th>
             <th><a href="" ng-click="ordenarPor('telefone')"/>Telefone</th>
             <th>Operadora</th>
+            <th>Preço</th>
             <th>Data</th>
             <th></th>
         </tr>
         <tr ng-class="{'selecionado negrito': contato.selecionado}"
             ng-repeat="contato in contatos | filter:{nome: criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-            <td>{{contato.serial}}</td>
+            <td>{{::contato.serial}}</td>
             <td>
-                <input type="checkbox" ng-model="contato.selecionado"/>
+                <input type="checkbox" ng-model="contato.selecionado"
+                       ng-change="verificarContatoSelecionado(contatos)"/>
             </td>
             <td><a href="#!/detalhesContato/{{contato.id}}">{{contato.nome | name | ellipsis:10}}</a></td>
-            <td>{{contato.telefone}}</td>
-            <td>{{contato.operadora.nome | lowercase}}</td>
-            <td>{{contato.data | date:'EEEE dd/MM/yyyy'}}</td>
+            <td>{{::contato.telefone}}</td>
+            <td>{{::contato.operadora.nome | lowercase}}</td>
+            <td>{{::contato.operadora.precoComImpostos | currency}}</td>
+            <td>{{::contato.data | date:'EEEE dd/MM/yyyy'}}</td>
             <td>
                 <div style="width: 20px; height: 20px;" ng-style="{'background-color': contato.cor}"></div>
             </td>
         </tr>
     </table>
     <hr/>
-
-    <button class="btn btn-danger btn-block" ng-click="apagarContato(contatos)" ng-if="isContatoSelecionado(contatos)">
+    <button class="btn btn-danger btn-block" ng-click="apagarContato(contatos)" ng-if="hasContatoSelecionado">
         Apagar Contato
     </button>
 
-    <hr class="my-4">
     <a class="btn btn-primary btn-block" href="#!/accordion">Accordions</a>
     <a class="btn btn-primary btn-block" href="#!/novoContato">Adicionar Contato</a>
 </div>

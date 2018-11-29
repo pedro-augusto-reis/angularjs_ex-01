@@ -1,4 +1,4 @@
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $filter, uppercaseFilter, contatosAPI, checkApi) {
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $filter, uppercaseFilter, contatosAPI, checkApi, resolveContatos) {
 
     $scope.app = "Lista Telefônica";
     // uma forma mais performática de se aplicar os filter é utilizar ele nos controllers
@@ -6,20 +6,28 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
     // 	{nome: uppercaseFilter("Pedro"), telefone: "99998888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "blue"},
     // 	{nome: $filter('uppercase')("Pedro"), telefone: "99998888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "blue"}];
 
-    $scope.contatos = [];
-    $scope.operadoras = [];
+    $scope.contatos = resolveContatos.data;
 
-    $scope.classe1 = "selecionado";
-    $scope.classe2 = "negrito";
+    var init = function () {
+        apiStatus();
+        calcularImpostos($scope.contatos);
+    }
+
+    var calcularImpostos = function (contatos) {
+        contatos.forEach(function (contato) {
+            contato.operadora.precoComImpostos = contato.operadora.preco * 1.2;
+        });
+    }
 
     $scope.apagarContato = function (contatos) {
         $scope.contatos = contatos.filter(function (contato) {
             if (!contato.selecionado) return contato;
         });
+        $scope.verificarContatoSelecionado($scope.contatos);
     };
 
-    $scope.isContatoSelecionado = function (contatos) {
-        return contatos.some(function (contato){
+    $scope.verificarContatoSelecionado = function (contatos) {
+        $scope.hasContatoSelecionado = contatos.some(function (contato) {
             return contato.selecionado;
         });
     };
@@ -29,23 +37,15 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
     };
 
-    var apiStatus = function(){
+    var apiStatus = function () {
         checkApi.verificarServico()
-            .then(function(response){
-               $scope.apiStatus = false;
+            .then(function () {
+                $scope.apiStatus = false;
             })
-            .catch(function(response){
+            .catch(function () {
                 $scope.apiStatus = true;
             });
     };
 
-    var carregarContatos = function(){
-        contatosAPI.getContatos()
-            .then(function (response) {
-                $scope.contatos = response.data;
-            });
-    };
-
-    apiStatus();
-    carregarContatos();
+    init();
 });
