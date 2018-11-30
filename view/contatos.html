@@ -23,7 +23,8 @@
             <th></th>
         </tr>
         <tr ng-class="{'selecionado negrito': contato.selecionado}"
-            ng-repeat="contato in contatos | filter:{nome: criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+            ng-repeat="contato in contatos | filter:{nome: criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao track by contato.id">
+            <!-- track by index-->
             <td>{{::contato.serial}}</td>
             <td>
                 <input type="checkbox" ng-model="contato.selecionado"
